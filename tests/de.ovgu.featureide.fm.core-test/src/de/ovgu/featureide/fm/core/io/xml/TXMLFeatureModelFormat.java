@@ -44,7 +44,7 @@ import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
  * @author Christopher Sontag
  * @author Maximilian Kühl
  * @author Marlen Bernier
- * @author Dawid Szczepanski
+ * @author Dawid Szczepanski 
  */
 public class TXMLFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 
@@ -63,7 +63,6 @@ public class TXMLFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 		String constraintdescriptionFromXml = "";
 
 		final IFeatureModel fm = Commons.loadTestFeatureModelFromFile("constraintDescriptionTest.xml");
-
 		assertEquals(1, fm.getConstraints().size());
 
 		for (IConstraint constraint : fm.getConstraints()) {
@@ -78,7 +77,6 @@ public class TXMLFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 		String constraintdescriptionFromXml = "";
 
 		final IFeatureModel fm = Commons.loadTestFeatureModelFromFile("constraintDescriptionTwoRulesTest.xml");
-
 		assertEquals(2, fm.getConstraints().size());
 		int i = 1;
 		for (IConstraint constraint : fm.getConstraints()) {
@@ -149,7 +147,6 @@ public class TXMLFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 		String constraintdescriptionFromXml = "";
 
 		final IFeatureModel fm = Commons.loadTestFeatureModelFromFile("basic.xml");
-
 		assertEquals(1, fm.getConstraints().size());
 
 		for (IConstraint constraint : fm.getConstraints()) {
