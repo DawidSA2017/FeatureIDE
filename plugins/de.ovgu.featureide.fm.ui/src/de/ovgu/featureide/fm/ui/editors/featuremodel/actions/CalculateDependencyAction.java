@@ -100,9 +100,10 @@ public class CalculateDependencyAction extends Action {
 	 */
 	@Override
 	public void run() {
-		if (selectedFeatures.size() != 1) {
+		// TODO: Check whether this makes any sense
+		/*if (selectedFeatures.size() != 1) {
 			throw new RuntimeException("Calculate dependencies for multiple selected features is not supported.");
-		}
+		}*/
 		final CalculateDependencyOperation op = new CalculateDependencyOperation(featureModel, selectedFeatures.get(0));
 
 		try {
@@ -141,7 +142,10 @@ public class CalculateDependencyAction extends Action {
 
 			selectedFeatures.add(feature);
 		}
-
+		// TODO: Maybe not intended behavior 
+		if (selectedFeatures.size() != 1) {
+			return false;
+		}
 		final boolean res = !selectedFeatures.isEmpty();
 
 		// permit selection to be root of the origin feature model
