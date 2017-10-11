@@ -71,7 +71,7 @@ public class CollapseAction extends MultipleSelectionAction {
 		}
 	};
 
-	public CollapseAction(Object viewer, IGraphicalFeatureModel graphicalFeatureModel) {
+	public CollapseAction(Object viewer, IGraphicalFeatureModel graphicalFeatureModel, IFeatureModel featureModel) {
 		super(COLLAPSE_FEATURE, viewer);
 		this.graphicalFeatureModel = graphicalFeatureModel;
 		
@@ -221,5 +221,59 @@ public class CollapseAction extends MultipleSelectionAction {
 		}
 		return features.toArray(new IFeature[features.size()]);
 	}
+	
+	private boolean isThereAtLeastOneFeatureThatHasChildren() {
+		for (IFeature tempFeature : featureArray) {
+			if (tempFeature.getStructure().hasChildren()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// Modified getSelectedFeatures() so that only features with children are included
+	@Override
+	protected IFeature[] getSelectedFeatures() {
+		ArrayList<IFeature> features = new ArrayList<>();
+		
+		IStructuredSelection selection;
+		if (viewer instanceof TreeViewer) {
+			selection = (IStructuredSelection) ((TreeViewer) viewer).getSelection();
+			if (selection.getFirstElement() instanceof FmOutlineGroupStateStorage) {
+				for (Object obj : selection.toArray()) {
+					if (((FmOutlineGroupStateStorage) obj).getFeature().getStructure().hasChildren()) {
+						features.add(((FmOutlineGroupStateStorage) obj).getFeature());
+					}
+				}
+				return features.toArray(new IFeature[features.size()]);
+			} else {
+				for (Object obj : selection.toArray()) {
+					if (((IFeature)obj).getStructure().hasChildren()) {
+						features.add((IFeature)obj);
+					}
+				}
+				return features.toArray(new IFeature[features.size()]);
+			}
+		} else {
+			selection = (IStructuredSelection) ((AbstractEditPartViewer) viewer).getSelection();
+		}
 
+		final Object part = selection.getFirstElement();
+		connectionSelected = part instanceof ConnectionEditPart;
+		if (connectionSelected) {
+			for (Object obj : selection.toArray()) {
+				IFeature tempFeature = ((ConnectionEditPart) obj).getModel().getTarget().getObject();
+				if (tempFeature.getStructure().hasChildren()) {
+					features.add(tempFeature);
+				}
+			}
+			return features.toArray(new IFeature[features.size()]);
+		}
+		for (Object obj : selection.toArray()) {
+			if (((FeatureEditPart) obj).getModel().getObject().getStructure().hasChildren()) {
+				features.add(((FeatureEditPart) obj).getModel().getObject());
+			}
+		}
+		return features.toArray(new IFeature[features.size()]);
+	}
 }

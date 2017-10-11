@@ -487,7 +487,7 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 		mandatoryAction = new MandatoryAction(this, featureModel);
 		hiddenAction = new HiddenAction(this, featureModel);
 
-		collapseAction = new CollapseAction(this, graphicalFeatureModel);
+		collapseAction = new CollapseAction(this, graphicalFeatureModel, featureModel);
 		collapseFeaturesAction = new CollapseSiblingsAction(this, graphicalFeatureModel);
 		collapseAllAction = new CollapseAllAction(this, graphicalFeatureModel, true, COLLAPSE_ALL);
 		collapseAllAction.setImageDescriptor(FmOutlinePageContextMenu.IMG_COLLAPSE); // icon for collapse added
@@ -677,7 +677,6 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 			if (getActiveExplanation() != null) {
 				menu.add(collapseAllButExplanationAction);
 			}
-
 			menu.add(new Separator());
 			menu.add(calculateDependencyAction);
 			menu.add(new Separator());
@@ -701,7 +700,6 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 		} else if (andAction.isEnabled() || orAction.isEnabled() || alternativeAction.isEnabled()) {
 
 			connectionEntrys(menu);
-
 			// if nothing is selected
 		} else {
 			menu.add(createConstraintAction);

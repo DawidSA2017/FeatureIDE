@@ -55,3 +55,4 @@ public class MandatoryFeatureOperation extends AbstractFeatureModelOperation {
 	}
 
 }
+
