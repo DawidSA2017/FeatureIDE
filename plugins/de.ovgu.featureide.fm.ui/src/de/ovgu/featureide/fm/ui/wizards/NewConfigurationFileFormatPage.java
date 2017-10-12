@@ -99,7 +99,7 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 			public void modifyText(ModifyEvent e) {				
 				String suffix= getFormat().getSuffix();
 				if(!suffix.equals("xml")) {
-					description = "Does not support selection and deselection of abstract features!";
+					description = "This configuration format does not suppport selection of abstract features and deselection of features.";
 				} else {
 					description = "Select a format for the new configuration file.";
 				}
